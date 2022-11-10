@@ -27,7 +27,7 @@ public class IPLimitCache {
             this.alts = data.getAlts(player);
         }
     }
-    public IPLimitCache(IPLimitData data, String player, String uuid, String ip) {
+    public IPLimitCache(IPLimitData data, String uuid, String ip) {
         this.data = data;
         this.uuid = UUID.fromString(uuid);
         this.ip = ip;
