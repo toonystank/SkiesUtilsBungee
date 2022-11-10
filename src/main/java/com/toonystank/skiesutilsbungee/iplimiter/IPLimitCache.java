@@ -23,23 +23,20 @@ public class IPLimitCache {
         this.player = player;
         this.uuid = player.getUniqueId();
         this.ip = player.getPendingConnection().getSocketAddress().toString();
-        if (isMain) {
-            this.alts = data.getAlts(player);
-        }
+        process();
     }
     public IPLimitCache(IPLimitData data, String uuid, String ip) {
         this.data = data;
         this.uuid = UUID.fromString(uuid);
         this.ip = ip;
-        if (isMain) {
-            this.alts = data.getAlts(uuid);
-        }
+        process();
     }
 
     private void process() {
         if (data.isAlt(String.valueOf(uuid)).getBoolean()) return;
         if (data.isPlayerInConfig(String.valueOf(uuid))) {
             isMain = true;
+            this.alts = data.getAlts(player);
             return;
         }
         data.addPlayer(String.valueOf(uuid), ip);

@@ -17,6 +17,12 @@ public class MainConfig extends ConfigManager {
     public String getByPassPermission() {
         return this.getString("bypass-permission");
     }
+    public boolean isIpLimitEnabled() {
+        return this.getBoolean("ip-limit.enabled");
+    }
+    public int getIpLimit() {
+        return this.getInt("ip-limit.limit");
+    }
     public String getPrefix() {
         return this.getString("message.prefix");
     }

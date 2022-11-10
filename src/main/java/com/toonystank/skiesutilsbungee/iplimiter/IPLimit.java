@@ -18,6 +18,7 @@ public class IPLimit {
     public IPLimit(SkiesUtilsBungee plugin) throws IOException {
         this.plugin = plugin;
         userIPLimitData = new IPLimitData(plugin, "data.yml");
+        process();
     }
 
     private void process() {
