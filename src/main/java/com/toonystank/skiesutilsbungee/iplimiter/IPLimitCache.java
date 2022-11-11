@@ -12,7 +12,7 @@ public class IPLimitCache {
 
     private final IPLimitData data;
 
-    private ProxiedPlayer player;
+    private String ownerName;
     private UUID uuid;
     private String ip;
     private List<String> alts = new ArrayList<>();
@@ -20,13 +20,14 @@ public class IPLimitCache {
 
     public IPLimitCache(IPLimitData data, ProxiedPlayer player) {
         this.data = data;
-        this.player = player;
+        this.ownerName = player.getName();
         this.uuid = player.getUniqueId();
         this.ip = player.getPendingConnection().getSocketAddress().toString();
         process();
     }
-    public IPLimitCache(IPLimitData data, String uuid, String ip) {
+    public IPLimitCache(IPLimitData data, String uuid, String ip, String name) {
         this.data = data;
+        this.ownerName = name;
         this.uuid = UUID.fromString(uuid);
         this.ip = ip;
         process();
@@ -36,10 +37,10 @@ public class IPLimitCache {
         if (data.isAlt(String.valueOf(uuid)).getBoolean()) return;
         if (data.isPlayerInConfig(String.valueOf(uuid))) {
             isMain = true;
-            this.alts = data.getAlts(player);
+            this.alts = data.getAlts(String.valueOf(uuid));
             return;
         }
-        data.addPlayer(String.valueOf(uuid), ip);
+        data.addPlayer(String.valueOf(uuid), ip, ownerName);
     }
 
     public IPLimitReturnType addAlt(ProxiedPlayer player) {

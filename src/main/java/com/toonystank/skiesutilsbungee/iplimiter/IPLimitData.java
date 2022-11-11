@@ -1,6 +1,7 @@
 package com.toonystank.skiesutilsbungee.iplimiter;
 
 import com.toonystank.skiesutilsbungee.utils.ConfigManager;
+import lombok.Getter;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 
@@ -10,8 +11,9 @@ import java.util.Objects;
 
 public class IPLimitData extends ConfigManager {
 
-
+@Getter
     private final Plugin plugin;
+@Getter
     private final String fileName;
 
     public IPLimitData(Plugin plugin, String fileName) throws IOException {
@@ -26,11 +28,12 @@ public class IPLimitData extends ConfigManager {
     }
 
     public void addPlayer(ProxiedPlayer player) {
-        addPlayer(player.getUniqueId().toString(), player.getPendingConnection().getSocketAddress().toString());
+        addPlayer(player.getUniqueId().toString(), player.getPendingConnection().getSocketAddress().toString(), player.getName());
     }
 
-    public void addPlayer(String uuid, String ip) {
+    public void addPlayer(String uuid, String ip, String name) {
         this.getConfig().set("users." + uuid + ".ip", ip);
+        this.getConfig().set("users." + uuid + ".name", name);
         this.save();
     }
 
@@ -75,6 +78,12 @@ public class IPLimitData extends ConfigManager {
     public String getIp(String uuid) {
         return this.getConfig().getString("users." + uuid + ".ip");
     }
+    public String getName(ProxiedPlayer player) {
+        return getName(player.getUniqueId().toString());
+    }
+    public String getName(String uuid) {
+        return this.getConfig().getString("users." + uuid + ".name");
+    }
 
     public List<String> getAlts(ProxiedPlayer player) {
         return getAlts(player.getUniqueId().toString());
@@ -84,13 +93,13 @@ public class IPLimitData extends ConfigManager {
         return getStringList("users." + uuid + ".alts");
     }
 
-    public void addAlt(ProxiedPlayer player, String alt) {
-        addAlt(player.getUniqueId().toString(), alt);
+    public void addAlt(ProxiedPlayer player, String altUUID) {
+        addAlt(player.getUniqueId().toString(), altUUID);
     }
 
-    public void addAlt(String uuid, String alt) {
+    public void addAlt(String uuid, String altUUID) {
         List<String> alts = getAlts(uuid);
-        alts.add(alt);
+        alts.add(altUUID);
         this.getConfig().set("users." + uuid + ".alts", alts);
         this.save();
     }

@@ -4,6 +4,7 @@ public enum IPLimitReturnType {
     SUCCESS(true),
     ALT(true),
     MAIN(true),
+    MAX_ALTS(false),
     ERROR(false),
     ALREADY_EXISTS(false),
     NOT_FOUND(false);

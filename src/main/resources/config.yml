@@ -1,13 +1,17 @@
-
-player-limit: 1
-bypass-permission: "skiesutils2.joinbypass"
 message:
   prefix: "&8[&6SkiesUtils2&8] &7"
   no_permission: "&cYou do not have permission to do that."
-  kick: "You have reached the maximum amount of accounts allowed on this IP address."
   reload: "SkiesBungee reloaded."
-  remove_alt: "Removed alt account from IP limit."
-  main_account: "The main account of %player% is %main%."
-  alt_account: "The alts of %player% are %alts%."
-  no_alt_account: "No alts found for %player%."
+
+# Ip limit
+ip-limit:
+  player-limit: 1
+  enabled: true
+  bypass-permission: "skiesutils2.joinbypass"
+  message:
+    kick: "You have reached the maximum amount of accounts allowed on this IP address."
+    remove_alt: "Removed alt account from IP limit."
+    main_account: "The main account of %player% is %main%."
+    alt_account: "The alts of %player% are %alts%."
+    no_alt_account: "No alts found for %player%."
 
